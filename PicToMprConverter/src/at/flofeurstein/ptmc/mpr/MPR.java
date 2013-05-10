@@ -49,11 +49,14 @@ public abstract class MPR {
 	 * @param toolDiameter is the diameter of the drill or the thickness of the mill
 	 * @param minDepth is the minimum drill/mill depth
 	 * @param maxDepth is the maximum drill/mill depth
+	 * @param ignoreMin drills/mills are just considered from this value
+	 * @param ignoreMax drills/mills are just considered to this value
 	 * @param mode is the mode of drilling (LS or SS) or the stepwise mill information
 	 * @param img is the image from which the mpr format is generated
 	 */
-	public abstract void createMPRfromImg(int workpieceLength, int workpieceWidth, int workpieceThickness, 
-			int toolDiameter, float minDepth, float maxDepth, String mode, BufferedImage img);
+	public abstract void createMPRfromImg(int workpieceLength, int workpieceWidth, 
+			int workpieceThickness, int toolDiameter, float minDepth, float maxDepth, 
+			float ignoreMin, float ignoreMax, String mode, BufferedImage img);
 
 	/**
 	 * Writes the mpr format from the m_mprString to a file

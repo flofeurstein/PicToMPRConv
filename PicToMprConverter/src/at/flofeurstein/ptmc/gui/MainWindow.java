@@ -113,7 +113,7 @@ public class MainWindow {
 	private void initialize() {
 		frmPictomprconverter = new JFrame();
 		frmPictomprconverter.setTitle(Messages.getString("MainWindow.frmPictomprconverter.title")); //$NON-NLS-1$
-		frmPictomprconverter.setBounds(100, 100, 843, 760);
+		frmPictomprconverter.setBounds(100, 100, 843, 700);
 		frmPictomprconverter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -390,6 +390,16 @@ public class MainWindow {
 		scalePanel.add(workpieceThicknessLbl, gbc_workpieceThicknessLbl);
 		
 		workpieceThicknessTf = new JTextField();
+		workpieceThicknessTf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if(!isPosNr(Integer.parseInt(workpieceThicknessTf.getText()))){
+					errorPopUp(Messages.getString("valBtZero"));
+					workpieceThicknessTf.setText("0");
+				}
+				
+			}
+		});
 		GridBagConstraints gbc_workpieceThicknessTf = new GridBagConstraints();
 		gbc_workpieceThicknessTf.fill = GridBagConstraints.HORIZONTAL;
 		gbc_workpieceThicknessTf.insets = new Insets(0, 0, 0, 5);
@@ -432,6 +442,15 @@ public class MainWindow {
 		workingDepthPanel.add(minDepthLbl, gbc_minDepthLbl);
 		
 		minDepthTf = new JTextField();
+		minDepthTf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if(!isPosNr(Integer.parseInt(minDepthTf.getText()))){
+					errorPopUp(Messages.getString("valBtZero"));
+					minDepthTf.setText("0");
+				}
+			}
+		});
 		GridBagConstraints gbc_minDepthTf = new GridBagConstraints();
 		gbc_minDepthTf.fill = GridBagConstraints.HORIZONTAL;
 		gbc_minDepthTf.insets = new Insets(0, 0, 5, 5);
@@ -459,6 +478,15 @@ public class MainWindow {
 		workingDepthPanel.add(maxDepthLbl, gbc_maxDepthLbl);
 		
 		maxDepthTf = new JTextField();
+		maxDepthTf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(!isPosNr(Integer.parseInt(maxDepthTf.getText()))){
+					errorPopUp(Messages.getString("valBtZero"));
+					maxDepthTf.setText("0");
+				}
+			}
+		});
 		GridBagConstraints gbc_maxDepthTf = new GridBagConstraints();
 		gbc_maxDepthTf.fill = GridBagConstraints.HORIZONTAL;
 		gbc_maxDepthTf.insets = new Insets(0, 0, 5, 5);
@@ -493,6 +521,15 @@ public class MainWindow {
 		workingDepthPanel.add(hideFromLbl, gbc_hideFromLbl);
 		
 		hideFromTf = new JTextField();
+		hideFromTf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(!isPosNr(Integer.parseInt(hideFromTf.getText()))){
+					errorPopUp(Messages.getString("valBtZero"));
+					hideFromTf.setText("0");
+				}
+			}
+		});
 		GridBagConstraints gbc_hideFromTf = new GridBagConstraints();
 		gbc_hideFromTf.fill = GridBagConstraints.HORIZONTAL;
 		gbc_hideFromTf.insets = new Insets(0, 0, 5, 5);
@@ -520,6 +557,15 @@ public class MainWindow {
 		workingDepthPanel.add(hideToLbl, gbc_hideToLbl);
 		
 		hideToTf = new JTextField();
+		hideToTf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(!isPosNr(Integer.parseInt(hideToTf.getText()))){
+					errorPopUp(Messages.getString("valBtZero"));
+					hideToTf.setText("0");
+				}
+			}
+		});
 		GridBagConstraints gbc_hideToTf = new GridBagConstraints();
 		gbc_hideToTf.fill = GridBagConstraints.HORIZONTAL;
 		gbc_hideToTf.insets = new Insets(0, 0, 0, 5);
@@ -561,6 +607,15 @@ public class MainWindow {
 		m_drillPanel.add(drillDiameterLbl, gbc_drillDiameterLbl);
 		
 		drillDiameterTf = new JTextField();
+		drillDiameterTf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(!isPosNr(Integer.parseInt(drillDiameterTf.getText()))){
+					errorPopUp(Messages.getString("valBtZero"));
+					drillDiameterTf.setText("0");
+				}
+			}
+		});
 		GridBagConstraints gbc_drillDiameterTf = new GridBagConstraints();
 		gbc_drillDiameterTf.fill = GridBagConstraints.HORIZONTAL;
 		gbc_drillDiameterTf.insets = new Insets(0, 0, 5, 5);
@@ -1032,8 +1087,8 @@ public class MainWindow {
 				try {
 					mpr.createMPRfromImg(Integer.parseInt(workpieceWidthTf.getText()), Integer.parseInt(workpieceHeightTf.getText()), 
 							Integer.parseInt(workpieceThicknessTf.getText()), Integer.parseInt(drillDiameterTf.getText()), 
-							Float.parseFloat(minDepthTf.getText()), Float.parseFloat(maxDepthTf.getText()), 
-							(String)m_drillModeCombo.getSelectedItem(), m_imgPanel.getCurrImage());
+							Float.parseFloat(minDepthTf.getText()), Float.parseFloat(maxDepthTf.getText()), Float.parseFloat(hideFromTf.getText()),
+							Float.parseFloat(hideToTf.getText()), (String)m_drillModeCombo.getSelectedItem(), m_imgPanel.getCurrImage());
 					
 					mpr.writeMPRToFile(mprPathTf.getText());
 					
@@ -1056,9 +1111,14 @@ public class MainWindow {
 		}else{
 			errorPopUp(Messages.getString("imgIOError"));
 		}
-		
-		
-		
-		
+
+	}
+	
+	private boolean isPosNr(int val){
+		if(val >= 0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

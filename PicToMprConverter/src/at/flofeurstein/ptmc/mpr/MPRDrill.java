@@ -17,9 +17,9 @@ public class MPRDrill extends MPR{
 	public final int MAX_GRAYVAL = 255;
 	
 	@Override
-	public void createMPRfromImg(int workpieceLength, int workpieceWidth,
-			int workpieceThickness, int drillDiameter, float minDrillDepth,
-			float maxDrillDepth, String drillMode, BufferedImage img) {
+	public void createMPRfromImg(int workpieceLength, int workpieceWidth, 
+			int workpieceThickness, int drillDiameter, float minDrillDepth, float maxDrillDepth, 
+			float ignoreMin, float ignoreMax, String drillMode, BufferedImage img) {
 		
 		float mappedDrillDepth = 0;
 		Calendar nowCal = new GregorianCalendar();
@@ -87,13 +87,16 @@ public class MPRDrill extends MPR{
 				 * the Raster is zero based but the mpr is 1 based
 				 */
 				mappedDrillDepth = mapDrillDepth(maxDrillDepth, minDrillDepth, (MAX_GRAYVAL - imgRaster.getSample(col, line, 0)));
-				m_mprString.append("<102 \\BohrVert\\\n" +
-									"XA=\"faktorgr*" + (imgRaster.getWidth() - col) + "\"\n" +
-									"YA=\"faktorgr*" + (line + 1) + "\"\n" +
-									"BM=\"" + drillMode + "\"\n" +
-									"TI=\"faktorti*" + mappedDrillDepth + "\"\n" +
-									"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + mappedDrillDepth + "\"\n\n"
-									);
+				
+				if(mappedDrillDepth > ignoreMin && mappedDrillDepth < ignoreMax){
+					m_mprString.append("<102 \\BohrVert\\\n" +
+										"XA=\"faktorgr*" + (imgRaster.getWidth() - col) + "\"\n" +
+										"YA=\"faktorgr*" + (line + 1) + "\"\n" +
+										"BM=\"" + drillMode + "\"\n" +
+										"TI=\"faktorti*" + mappedDrillDepth + "\"\n" +
+										"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + mappedDrillDepth + "\"\n\n"
+										);
+				}
 			}
 		}
 		
