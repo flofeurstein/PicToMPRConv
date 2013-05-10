@@ -208,18 +208,13 @@ public class MainWindow {
 		
 		JRadioButton millRdbtn = new JRadioButton(Messages.getString("MainWindow.rdbtnFrsen.text"));
 		drillMillRdbtnGroup.add(millRdbtn);
+		
+		/*TODO remove the following line when mill function is implemented*/
+		millRdbtn.setEnabled(false);
 		millRdbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				enableMillPanel();
 				disableDrillPanel();
-				
-				/*
-				 * TODO: implement mill mode, as long as there is no mill mode available
-				 * pop up warning message
-				 */
-				warningPopUp(Messages.getString("notYetImplemented"));
-				enableDrillPanel();
-				disableMillPanel();
 			}
 		});
 
