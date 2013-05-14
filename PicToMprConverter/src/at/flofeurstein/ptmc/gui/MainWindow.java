@@ -62,10 +62,7 @@ public class MainWindow {
 	private JTextField hideFromTf;
 	private JTextField hideToTf;
 	private JTextField drillDiameterTf;
-	private JTextField toolNrTf;
-	private JTextField millStepwiseTf;
 	private JPanel m_drillPanel;
-	private JPanel m_millPanel;
 	private JComboBox<String> m_drillModeCombo;
 	private final ButtonGroup drillMillRdbtnGroup = new ButtonGroup();
 	private JTextField picPathTf;
@@ -75,6 +72,8 @@ public class MainWindow {
 	private JTextField mprPathTf;
 	private ImgProcessor m_imgProc;
 	private JCheckBox m_negativeChkBx;
+	private final ButtonGroup drillGeometryRdbtnGroup = new ButtonGroup();
+	private JRadioButton m_rdbtnSquare;
 
 	/**
 	 * Launch the application.
@@ -581,6 +580,7 @@ public class MainWindow {
 		m_drillPanel = new JPanel();
 		m_drillPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), Messages.getString("JPanelTitle4"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_m_drillPanel = new GridBagConstraints();
+		gbc_m_drillPanel.gridheight = 2;
 		gbc_m_drillPanel.fill = GridBagConstraints.BOTH;
 		gbc_m_drillPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_m_drillPanel.gridx = 7;
@@ -588,9 +588,9 @@ public class MainWindow {
 		settingsPanel.add(m_drillPanel, gbc_m_drillPanel);
 		GridBagLayout gbl_m_drillPanel = new GridBagLayout();
 		gbl_m_drillPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_m_drillPanel.rowHeights = new int[]{0, 0, 0};
+		gbl_m_drillPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gbl_m_drillPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_m_drillPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_m_drillPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		m_drillPanel.setLayout(gbl_m_drillPanel);
 		
 		JLabel drillDiameterLbl = new JLabel(Messages.getString("MainWindow.lblBohrdurchmesser.text"));
@@ -632,7 +632,7 @@ public class MainWindow {
 		JLabel drillModeLbl = new JLabel(Messages.getString("MainWindow.lblBohrmodus.text"));
 		GridBagConstraints gbc_drillModeLbl = new GridBagConstraints();
 		gbc_drillModeLbl.anchor = GridBagConstraints.EAST;
-		gbc_drillModeLbl.insets = new Insets(0, 0, 0, 5);
+		gbc_drillModeLbl.insets = new Insets(0, 0, 5, 5);
 		gbc_drillModeLbl.gridx = 0;
 		gbc_drillModeLbl.gridy = 1;
 		m_drillPanel.add(drillModeLbl, gbc_drillModeLbl);
@@ -640,62 +640,37 @@ public class MainWindow {
 		m_drillModeCombo = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 1;
 		m_drillPanel.add(m_drillModeCombo, gbc_comboBox);
 		m_drillModeCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"LS", "SS"}));
 		
-		m_millPanel = new JPanel();
-		m_millPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), Messages.getString("JPanelTitle5"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_m_millPanel = new GridBagConstraints();
-		gbc_m_millPanel.insets = new Insets(0, 0, 5, 0);
-		gbc_m_millPanel.fill = GridBagConstraints.BOTH;
-		gbc_m_millPanel.gridx = 7;
-		gbc_m_millPanel.gridy = 2;
-		settingsPanel.add(m_millPanel, gbc_m_millPanel);
-		GridBagLayout gbl_m_millPanel = new GridBagLayout();
-		gbl_m_millPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_m_millPanel.rowHeights = new int[]{0, 0, 0};
-		gbl_m_millPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_m_millPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		m_millPanel.setLayout(gbl_m_millPanel);
+		JLabel lblDrillGeometry = new JLabel(Messages.getString("MainWindow.lblBohrgeometrie.text")); //$NON-NLS-1$
+		GridBagConstraints gbc_lblDrillGeometry = new GridBagConstraints();
+		gbc_lblDrillGeometry.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDrillGeometry.gridx = 0;
+		gbc_lblDrillGeometry.gridy = 2;
+		m_drillPanel.add(lblDrillGeometry, gbc_lblDrillGeometry);
 		
-		JLabel toolNrLbl = new JLabel(Messages.getString("MainWindow.lblWerkzeugnummer.text"));
-		GridBagConstraints gbc_toolNrLbl = new GridBagConstraints();
-		gbc_toolNrLbl.anchor = GridBagConstraints.EAST;
-		gbc_toolNrLbl.insets = new Insets(0, 0, 5, 5);
-		gbc_toolNrLbl.gridx = 0;
-		gbc_toolNrLbl.gridy = 0;
-		m_millPanel.add(toolNrLbl, gbc_toolNrLbl);
+		m_rdbtnSquare = new JRadioButton(Messages.getString("MainWindow.rdbtnQuadrat.text")); //$NON-NLS-1$
+		m_rdbtnSquare.setSelected(true);
+		drillGeometryRdbtnGroup.add(m_rdbtnSquare);
+		GridBagConstraints gbc_rdbtnSquare = new GridBagConstraints();
+		gbc_rdbtnSquare.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnSquare.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnSquare.gridx = 1;
+		gbc_rdbtnSquare.gridy = 2;
+		m_drillPanel.add(m_rdbtnSquare, gbc_rdbtnSquare);
 		
-		toolNrTf = new JTextField();
-		GridBagConstraints gbc_toolNrTf = new GridBagConstraints();
-		gbc_toolNrTf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_toolNrTf.insets = new Insets(0, 0, 5, 0);
-		gbc_toolNrTf.gridx = 1;
-		gbc_toolNrTf.gridy = 0;
-		m_millPanel.add(toolNrTf, gbc_toolNrTf);
-		toolNrTf.setHorizontalAlignment(SwingConstants.RIGHT);
-		toolNrTf.setText(Messages.getString("MainWindow.textField_10.text"));
-		toolNrTf.setColumns(10);
-		
-		JLabel millStepwiseLbl = new JLabel(Messages.getString("MainWindow.lblStufenweiseFrsen.text"));
-		GridBagConstraints gbc_millStepwiseLbl = new GridBagConstraints();
-		gbc_millStepwiseLbl.anchor = GridBagConstraints.EAST;
-		gbc_millStepwiseLbl.insets = new Insets(0, 0, 0, 5);
-		gbc_millStepwiseLbl.gridx = 0;
-		gbc_millStepwiseLbl.gridy = 1;
-		m_millPanel.add(millStepwiseLbl, gbc_millStepwiseLbl);
-		
-		millStepwiseTf = new JTextField();
-		GridBagConstraints gbc_millStepwiseTf = new GridBagConstraints();
-		gbc_millStepwiseTf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_millStepwiseTf.gridx = 1;
-		gbc_millStepwiseTf.gridy = 1;
-		m_millPanel.add(millStepwiseTf, gbc_millStepwiseTf);
-		millStepwiseTf.setText(Messages.getString("MainWindow.textField_11.text"));
-		millStepwiseTf.setColumns(10);
+		JRadioButton rdbtnRhombus = new JRadioButton(Messages.getString("MainWindow.rdbtnRaute.text")); //$NON-NLS-1$
+		drillGeometryRdbtnGroup.add(rdbtnRhombus);
+		GridBagConstraints gbc_rdbtnRhombus = new GridBagConstraints();
+		gbc_rdbtnRhombus.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnRhombus.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnRhombus.gridx = 1;
+		gbc_rdbtnRhombus.gridy = 3;
+		m_drillPanel.add(rdbtnRhombus, gbc_rdbtnRhombus);
 		
 		/*
 		 * Set initial state for radiobuttons (drill/bohren and mill/fräsen)
@@ -874,22 +849,21 @@ public class MainWindow {
 	 * Enables the mill Panel in the GUI
 	 */
 	private void enableMillPanel(){
-		m_millPanel.setEnabled(true);
-		
-		for(Component c:m_millPanel.getComponents()){
-			c.setEnabled(true);
-		}
+//		m_millPanel.setEnabled(true);
+//		
+//		for(Component c:m_millPanel.getComponents()){
+//			c.setEnabled(true);
+//		}
 	}
 	
 	/**
 	 * Disables the mill Panel in the GUI
 	 */
 	private void disableMillPanel(){
-		m_millPanel.setEnabled(false);
 		
-		for(Component c:m_millPanel.getComponents()){
-			c.setEnabled(false);
-		}
+//		for(Component c:m_millPanel.getComponents()){
+//			c.setEnabled(false);
+//		}
 	}
 	
 	/**
@@ -1078,12 +1052,17 @@ public class MainWindow {
 			
 			if(m_drillPanel.isEnabled()){
 				mpr = new MPRDrill();
+				boolean isSquare = false;
+				
+				if(m_rdbtnSquare.isSelected()){
+					isSquare = true;
+				}
 
 				try {
 					mpr.createMPRfromImg(Integer.parseInt(workpieceWidthTf.getText()), Integer.parseInt(workpieceHeightTf.getText()), 
 							Float.parseFloat(workpieceThicknessTf.getText()), Float.parseFloat(drillDiameterTf.getText()), 
 							Float.parseFloat(minDepthTf.getText()), Float.parseFloat(maxDepthTf.getText()), Float.parseFloat(hideFromTf.getText()),
-							Float.parseFloat(hideToTf.getText()), (String)m_drillModeCombo.getSelectedItem(), m_imgPanel.getCurrImage());
+							Float.parseFloat(hideToTf.getText()), (String)m_drillModeCombo.getSelectedItem(), isSquare, m_imgPanel.getCurrImage());
 					
 					mpr.writeMPRToFile(mprPathTf.getText());
 					

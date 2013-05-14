@@ -52,11 +52,12 @@ public abstract class MPR {
 	 * @param ignoreMin drills/mills are just considered from this value
 	 * @param ignoreMax drills/mills are just considered to this value
 	 * @param mode is the mode of drilling (LS or SS) or the stepwise mill information
+	 * @param squareDrill defines if the drill geometry is a square drill or a rhombus drill
 	 * @param img is the image from which the mpr format is generated
 	 */
 	public abstract void createMPRfromImg(int workpieceLength, int workpieceWidth, 
 			float workpieceThickness, float toolDiameter, float minDepth, float maxDepth, 
-			float ignoreMin, float ignoreMax, String mode, BufferedImage img);
+			float ignoreMin, float ignoreMax, String mode, boolean squareDrill, BufferedImage img);
 
 	/**
 	 * Writes the mpr format from the m_mprString to a file

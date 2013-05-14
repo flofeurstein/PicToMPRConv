@@ -22,7 +22,7 @@ public class MPRDrill extends MPR{
 	
 	public void createMPRfromImg(int workpieceLength, int workpieceWidth, 
 			float workpieceThickness, float drillDiameter, float minDrillDepth, float maxDrillDepth, 
-			float ignoreMin, float ignoreMax, String drillMode, BufferedImage img) {
+			float ignoreMin, float ignoreMax, String drillMode, boolean squareDrill, BufferedImage img) {
 		
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat decFormat = (DecimalFormat)nf;
@@ -75,80 +75,81 @@ public class MPRDrill extends MPR{
 		
 		Raster imgRaster = img.getData();
 		
-		
-//		/*
-//		 * Go through all the pixels in the raster, beginning at the right upper corner
-//		 */
-//		for(int line = 0; line < imgRaster.getHeight(); line++){//loop for all the lines
-//			for(int col = 0; col < imgRaster.getWidth(); col++){//loop for all the columns
-//				
-//				/*
-//				 * Map grayvalue to value between maxDrillDepth and minDrillDepth.
-//				 * Grayvalue: 255 is white and 0 is black
-//				 * To get the drill deeper, the darker the grayvalue is, I have to subtract the actual
-//				 * grayvalue from the maximum grayvalue (255)
-//				 * 
-//				 * For XA I calculate the value by subtracting the current column from the 
-//				 * overall height of the raster, that is because the mpr should start
-//				 * at the top right corner (if I don't do this, the image is mirrored in the mpr file)
-//				 * 
-//				 * For YA I have to add 1 to the current line number because
-//				 * the Raster is zero based but the mpr is 1 based
-//				 */
-//				mappedDrillDepth = mapDrillDepth(maxDrillDepth, minDrillDepth, (MAX_GRAYVAL - imgRaster.getSample(col, line, 0)));
-//				
-//				if(mappedDrillDepth > ignoreMin && mappedDrillDepth < ignoreMax){
-//					m_mprString.append("<102 \\BohrVert\\\n" +
-//										"XA=\"faktorgr*" + wpToResFactor * (imgRaster.getWidth() - col) + "\"\n" +
-//										"YA=\"faktorgr*" + wpToResFactor * (line + 1) + "\"\n" +
-//										"BM=\"" + drillMode + "\"\n" +
-//										"TI=\"faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n" +
-//										"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n\n"
-//										);
-//				}
-//			}
-//		}
-		
-		/*
-		 * Go through all the pixels in the raster, beginning at the right upper corner
-		 */
-		int col = 1;
-		for(int line = 0; line < imgRaster.getHeight(); line++){//loop for all the lines
-			if(line%2 == 0){
-				col = 1;
-			}else{
-				col = 0;
-			}
-			while(col < imgRaster.getWidth()){//loop for all the columns
-				
-				/*
-				 * Map grayvalue to value between maxDrillDepth and minDrillDepth.
-				 * Grayvalue: 255 is white and 0 is black
-				 * To get the drill deeper, the darker the grayvalue is, I have to subtract the actual
-				 * grayvalue from the maximum grayvalue (255)
-				 * 
-				 * For XA I calculate the value by subtracting the current column from the 
-				 * overall height of the raster, that is because the mpr should start
-				 * at the top right corner (if I don't do this, the image is mirrored in the mpr file)
-				 * 
-				 * For YA I have to add 1 to the current line number because
-				 * the Raster is zero based but the mpr is 1 based
-				 */
-				mappedDrillDepth = mapDrillDepth(maxDrillDepth, minDrillDepth, (MAX_GRAYVAL - imgRaster.getSample(col, line, 0)));
-				
-				if(mappedDrillDepth > ignoreMin && mappedDrillDepth < ignoreMax){
-					m_mprString.append("<102 \\BohrVert\\\n" +
-										"XA=\"faktorgr*" + wpToResFactor * (imgRaster.getWidth() - col) + "\"\n" +
-										"YA=\"faktorgr*" + wpToResFactor * (line + 1) + "\"\n" +
-										"BM=\"" + drillMode + "\"\n" +
-										"TI=\"faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n" +
-										"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n\n"
-										);
+		if(squareDrill){
+
+			/*
+			 * Go through all the pixels in the raster, beginning at the right upper corner
+			 */
+			for(int line = 0; line < imgRaster.getHeight(); line++){//loop for all the lines
+				for(int col = 0; col < imgRaster.getWidth(); col++){//loop for all the columns
+					
+					/*
+					 * Map grayvalue to value between maxDrillDepth and minDrillDepth.
+					 * Grayvalue: 255 is white and 0 is black
+					 * To get the drill deeper, the darker the grayvalue is, I have to subtract the actual
+					 * grayvalue from the maximum grayvalue (255)
+					 * 
+					 * For XA I calculate the value by subtracting the current column from the 
+					 * overall height of the raster, that is because the mpr should start
+					 * at the top right corner (if I don't do this, the image is mirrored in the mpr file)
+					 * 
+					 * For YA I have to add 1 to the current line number because
+					 * the Raster is zero based but the mpr is 1 based
+					 */
+					mappedDrillDepth = mapDrillDepth(maxDrillDepth, minDrillDepth, (MAX_GRAYVAL - imgRaster.getSample(col, line, 0)));
+					
+					if(mappedDrillDepth > ignoreMin && mappedDrillDepth < ignoreMax){
+						m_mprString.append("<102 \\BohrVert\\\n" +
+											"XA=\"faktorgr*" + wpToResFactor * (imgRaster.getWidth() - col) + "\"\n" +
+											"YA=\"faktorgr*" + wpToResFactor * (line + 1) + "\"\n" +
+											"BM=\"" + drillMode + "\"\n" +
+											"TI=\"faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n" +
+											"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n\n"
+											);
+					}
 				}
-				col+=2;
+			}
+		}else{
+			/*
+			 * Go through all the pixels in the raster, beginning at the right upper corner
+			 */
+			int col = 1;
+			for(int line = 0; line < imgRaster.getHeight(); line++){//loop for all the lines
+				if(line%2 == 0){
+					col = 1;
+				}else{
+					col = 0;
+				}
+				while(col < imgRaster.getWidth()){//loop for all the columns
+					
+					/*
+					 * Map grayvalue to value between maxDrillDepth and minDrillDepth.
+					 * Grayvalue: 255 is white and 0 is black
+					 * To get the drill deeper, the darker the grayvalue is, I have to subtract the actual
+					 * grayvalue from the maximum grayvalue (255)
+					 * 
+					 * For XA I calculate the value by subtracting the current column from the 
+					 * overall height of the raster, that is because the mpr should start
+					 * at the top right corner (if I don't do this, the image is mirrored in the mpr file)
+					 * 
+					 * For YA I have to add 1 to the current line number because
+					 * the Raster is zero based but the mpr is 1 based
+					 */
+					mappedDrillDepth = mapDrillDepth(maxDrillDepth, minDrillDepth, (MAX_GRAYVAL - imgRaster.getSample(col, line, 0)));
+					
+					if(mappedDrillDepth > ignoreMin && mappedDrillDepth < ignoreMax){
+						m_mprString.append("<102 \\BohrVert\\\n" +
+											"XA=\"faktorgr*" + wpToResFactor * (imgRaster.getWidth() - col) + "\"\n" +
+											"YA=\"faktorgr*" + wpToResFactor * (line + 1) + "\"\n" +
+											"BM=\"" + drillMode + "\"\n" +
+											"TI=\"faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n" +
+											"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n\n"
+											);
+					}
+					col+=2;
+				}
 			}
 		}
-		
 		
 		
 		/*
