@@ -18,7 +18,7 @@ public class MPRMill extends MPR{
 
 	@Override
 	public void createMPRfromImg(int workpieceLength, int workpieceWidth, 
-			int workpieceThickness, int toolDiameter, float minDepth, float maxDepth, 
+			float workpieceThickness, float toolDiameter, float minDepth, float maxDepth, 
 			float ignoreMin, float ignoreMax, String mode, BufferedImage img) {
 		// TODO Auto-generated method stub
 		

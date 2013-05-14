@@ -388,7 +388,7 @@ public class MainWindow {
 		workpieceThicknessTf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				if(!isPosNr(Integer.parseInt(workpieceThicknessTf.getText()))){
+				if(!isPosNr(Float.parseFloat(workpieceThicknessTf.getText()))){
 					errorPopUp(Messages.getString("valBtZero"));
 					workpieceThicknessTf.setText("0");
 				}
@@ -440,7 +440,7 @@ public class MainWindow {
 		minDepthTf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				if(!isPosNr(Integer.parseInt(minDepthTf.getText()))){
+				if(!isPosNr(Float.parseFloat(minDepthTf.getText()))){
 					errorPopUp(Messages.getString("valBtZero"));
 					minDepthTf.setText("0");
 				}
@@ -476,7 +476,7 @@ public class MainWindow {
 		maxDepthTf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(!isPosNr(Integer.parseInt(maxDepthTf.getText()))){
+				if(!isPosNr(Float.parseFloat(maxDepthTf.getText()))){
 					errorPopUp(Messages.getString("valBtZero"));
 					maxDepthTf.setText("0");
 				}
@@ -519,7 +519,7 @@ public class MainWindow {
 		hideFromTf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(!isPosNr(Integer.parseInt(hideFromTf.getText()))){
+				if(!isPosNr(Float.parseFloat(hideFromTf.getText()))){
 					errorPopUp(Messages.getString("valBtZero"));
 					hideFromTf.setText("0");
 				}
@@ -555,7 +555,7 @@ public class MainWindow {
 		hideToTf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(!isPosNr(Integer.parseInt(hideToTf.getText()))){
+				if(!isPosNr(Float.parseFloat(hideToTf.getText()))){
 					errorPopUp(Messages.getString("valBtZero"));
 					hideToTf.setText("0");
 				}
@@ -605,7 +605,7 @@ public class MainWindow {
 		drillDiameterTf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(!isPosNr(Integer.parseInt(drillDiameterTf.getText()))){
+				if(!isPosNr(Float.parseFloat(drillDiameterTf.getText()))){
 					errorPopUp(Messages.getString("valBtZero"));
 					drillDiameterTf.setText("0");
 				}
@@ -1081,7 +1081,7 @@ public class MainWindow {
 
 				try {
 					mpr.createMPRfromImg(Integer.parseInt(workpieceWidthTf.getText()), Integer.parseInt(workpieceHeightTf.getText()), 
-							Integer.parseInt(workpieceThicknessTf.getText()), Integer.parseInt(drillDiameterTf.getText()), 
+							Float.parseFloat(workpieceThicknessTf.getText()), Float.parseFloat(drillDiameterTf.getText()), 
 							Float.parseFloat(minDepthTf.getText()), Float.parseFloat(maxDepthTf.getText()), Float.parseFloat(hideFromTf.getText()),
 							Float.parseFloat(hideToTf.getText()), (String)m_drillModeCombo.getSelectedItem(), m_imgPanel.getCurrImage());
 					
@@ -1109,7 +1109,13 @@ public class MainWindow {
 
 	}
 	
-	private boolean isPosNr(int val){
+	/**
+	 * Tests if the input parameter is positive
+	 * 
+	 * @param val is the value to be tested
+	 * @return boolean value true if input parameter is positive, false when it is negative
+	 */
+	private boolean isPosNr(float val){
 		if(val >= 0){
 			return true;
 		}else{

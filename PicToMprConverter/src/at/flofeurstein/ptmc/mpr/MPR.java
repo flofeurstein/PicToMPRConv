@@ -55,7 +55,7 @@ public abstract class MPR {
 	 * @param img is the image from which the mpr format is generated
 	 */
 	public abstract void createMPRfromImg(int workpieceLength, int workpieceWidth, 
-			int workpieceThickness, int toolDiameter, float minDepth, float maxDepth, 
+			float workpieceThickness, float toolDiameter, float minDepth, float maxDepth, 
 			float ignoreMin, float ignoreMax, String mode, BufferedImage img);
 
 	/**
