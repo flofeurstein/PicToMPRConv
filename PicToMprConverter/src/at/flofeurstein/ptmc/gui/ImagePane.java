@@ -25,6 +25,7 @@ package at.flofeurstein.ptmc.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -59,6 +60,20 @@ public class ImagePane extends JPanel {
 	public void setImage(BufferedImage img){
 		setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
 		m_imgToShow = img;
+		repaint();
+	}
+	
+	/**
+	 * Set image to be shown in the panel, set perferred size according to image size
+	 * and repaint the Panel
+	 * 
+	 * @param img not buffered image
+	 */
+	public void setImage(Image img){
+		BufferedImage buffImg = new BufferedImage(127, 51, BufferedImage.TYPE_INT_RGB);//img.getScaledInstance(127, 51, Image.SCALE_SMOOTH);
+		buffImg.getGraphics().drawImage(img, 0, 0, null);
+		setPreferredSize(new Dimension(buffImg.getWidth(), buffImg.getHeight()));
+		m_imgToShow = buffImg;
 		repaint();
 	}
 	

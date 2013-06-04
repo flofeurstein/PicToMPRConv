@@ -30,7 +30,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -64,7 +63,7 @@ public class AboutDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AboutDialog() {
+	public AboutDialog(){
 		setTitle(Messages.getString("AboutDialog.this.title")); //$NON-NLS-1$
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -93,11 +92,12 @@ public class AboutDialog extends JDialog {
 			gbc_panelGPLv3.gridx = 4;
 			gbc_panelGPLv3.gridy = 4;
 			try {
-				panelGPLv3.setImage(ImageIO.read(new File("../PicToMprConverter/src/at/flofeurstein/ptmc/gui/gplv3-127x51.png")));
+				panelGPLv3.setImage(ImageIO.read(getClass().getClassLoader().getResource("at/flofeurstein/ptmc/gui/gplv3-127x51.png")));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 			{
 				JLabel lblLizenz = new JLabel(Messages.getString("AboutDialog.lblLizenz.text")); //$NON-NLS-1$
 				GridBagConstraints gbc_lblLizenz = new GridBagConstraints();

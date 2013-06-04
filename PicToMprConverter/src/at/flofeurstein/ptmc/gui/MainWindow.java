@@ -30,6 +30,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -42,6 +43,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -65,8 +67,6 @@ import at.flofeurstein.ptmc.imgproc.ImgProcessor;
 import at.flofeurstein.ptmc.mpr.MPR;
 import at.flofeurstein.ptmc.mpr.MPRDrill;
 import at.flofeurstein.ptmc.mpr.MPRMill;
-import javax.swing.JCheckBox;
-import java.awt.Toolkit;
 
 public class MainWindow {
 
