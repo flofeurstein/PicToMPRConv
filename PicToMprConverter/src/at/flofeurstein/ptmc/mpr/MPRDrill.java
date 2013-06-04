@@ -87,7 +87,6 @@ public class MPRDrill extends MPR{
 														"KM=\"maximalbohrtiefe =" + decFormat.format(maxDrillDepth) + "mm\"\n\n"
 														);
 		
-		System.out.println(decFormat.format(maxDrillDepth));
 		m_mprString.append(m_mprHeader.append(commentField001.append(workpiece.append(commentField101.toString()))));	
 		
 		Raster imgRaster = img.getData();

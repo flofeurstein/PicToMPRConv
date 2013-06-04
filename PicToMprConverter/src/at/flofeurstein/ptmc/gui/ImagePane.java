@@ -70,7 +70,7 @@ public class ImagePane extends JPanel {
 	 * @param img not buffered image
 	 */
 	public void setImage(Image img){
-		BufferedImage buffImg = new BufferedImage(127, 51, BufferedImage.TYPE_INT_RGB);//img.getScaledInstance(127, 51, Image.SCALE_SMOOTH);
+		BufferedImage buffImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);//img.getScaledInstance(127, 51, Image.SCALE_SMOOTH);
 		buffImg.getGraphics().drawImage(img, 0, 0, null);
 		setPreferredSize(new Dimension(buffImg.getWidth(), buffImg.getHeight()));
 		m_imgToShow = buffImg;
