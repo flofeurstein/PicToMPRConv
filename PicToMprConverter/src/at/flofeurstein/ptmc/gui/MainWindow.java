@@ -67,6 +67,7 @@ import at.flofeurstein.ptmc.imgproc.ImgProcessor;
 import at.flofeurstein.ptmc.mpr.MPR;
 import at.flofeurstein.ptmc.mpr.MPRDrill;
 import at.flofeurstein.ptmc.mpr.MPRMill;
+import java.awt.GridLayout;
 
 public class MainWindow {
 
@@ -132,7 +133,7 @@ public class MainWindow {
 		frmPictomprconverter = new JFrame();
 		frmPictomprconverter.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/at/flofeurstein/ptmc/gui/icon.jpg")));
 		frmPictomprconverter.setTitle(Messages.getString("MainWindow.frmPictomprconverter.title")); //$NON-NLS-1$
-		frmPictomprconverter.setBounds(100, 100, 843, 700);
+		frmPictomprconverter.setBounds(100, 100, 843, 755);
 		frmPictomprconverter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -188,9 +189,9 @@ public class MainWindow {
 		scrollPane.setViewportView(mainPanel);
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
 		gbl_mainPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_mainPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_mainPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_mainPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_mainPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_mainPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		mainPanel.setLayout(gbl_mainPanel);
 		
 		JPanel settingsPanel = new JPanel();
@@ -199,7 +200,7 @@ public class MainWindow {
 		gbc_settingsPanel.gridwidth = 3;
 		gbc_settingsPanel.fill = GridBagConstraints.BOTH;
 		gbc_settingsPanel.gridheight = 3;
-		gbc_settingsPanel.insets = new Insets(0, 0, 5, 5);
+		gbc_settingsPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_settingsPanel.gridx = 0;
 		gbc_settingsPanel.gridy = 0;
 		mainPanel.add(settingsPanel, gbc_settingsPanel);
@@ -698,66 +699,12 @@ public class MainWindow {
 		drillRdbtn.setSelected(true);
 		disableMillPanel();
 		
-		JButton applyChangesBtn = new JButton(Messages.getString("MainWindow.btnAnwenden.text")); //$NON-NLS-1$
-		applyChangesBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File file = new File(picPathTf.getText());
-				try {
-					applyImgSettings(file);
-				} catch (IOException e1) {
-					errorPopUp(Messages.getString("imgIOError"));
-					e1.printStackTrace();
-				}
-			}
-		});
-		GridBagConstraints gbc_applyChangesBtn = new GridBagConstraints();
-		gbc_applyChangesBtn.insets = new Insets(0, 0, 0, 5);
-		gbc_applyChangesBtn.gridx = 0;
-		gbc_applyChangesBtn.gridy = 3;
-		settingsPanel.add(applyChangesBtn, gbc_applyChangesBtn);
-		
-		JLabel mprPathLbl = new JLabel(Messages.getString("MainWindow.lblVerzeichnis.text")); //$NON-NLS-1$
-		GridBagConstraints gbc_mprPathLbl = new GridBagConstraints();
-		gbc_mprPathLbl.anchor = GridBagConstraints.EAST;
-		gbc_mprPathLbl.gridwidth = 3;
-		gbc_mprPathLbl.insets = new Insets(0, 0, 0, 5);
-		gbc_mprPathLbl.gridx = 1;
-		gbc_mprPathLbl.gridy = 3;
-		settingsPanel.add(mprPathLbl, gbc_mprPathLbl);
-		
-		mprPathTf = new JTextField();
-		mprPathTf.setText(Messages.getString("MainWindow.textField_13.text")); //$NON-NLS-1$
-		GridBagConstraints gbc_mprPathTf = new GridBagConstraints();
-		gbc_mprPathTf.gridwidth = 3;
-		gbc_mprPathTf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_mprPathTf.insets = new Insets(0, 0, 0, 5);
-		gbc_mprPathTf.gridx = 4;
-		gbc_mprPathTf.gridy = 3;
-		settingsPanel.add(mprPathTf, gbc_mprPathTf);
-		mprPathTf.setColumns(10);
-		
 		m_fcMprBrowse = new JFileChooser();
-		JButton mprPathBrowseBtn = new JButton(Messages.getString("MainWindow.btnNewButton.text_1")); //$NON-NLS-1$
-		mprPathBrowseBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int returnVal = m_fcMprBrowse.showOpenDialog(frmPictomprconverter);
-				
-				if(returnVal == JFileChooser.APPROVE_OPTION){
-					File file = m_fcMprBrowse.getSelectedFile();
-					
-					mprPathTf.setText(file.getPath());
-				}
-			}
-		});
-		GridBagConstraints gbc_mprPathBrowseBtn = new GridBagConstraints();
-		gbc_mprPathBrowseBtn.anchor = GridBagConstraints.WEST;
-		gbc_mprPathBrowseBtn.gridx = 7;
-		gbc_mprPathBrowseBtn.gridy = 3;
-		settingsPanel.add(mprPathBrowseBtn, gbc_mprPathBrowseBtn);
 		
 		JPanel picturePanel = new JPanel();
 		picturePanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), Messages.getString("JPanelTitle6"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_picturePanel = new GridBagConstraints();
+		gbc_picturePanel.insets = new Insets(0, 0, 5, 0);
 		gbc_picturePanel.gridwidth = 3;
 		gbc_picturePanel.fill = GridBagConstraints.BOTH;
 		gbc_picturePanel.gridx = 0;
@@ -795,13 +742,6 @@ public class MainWindow {
 			}
 		});
 		
-		JButton createMPRBtn = new JButton(Messages.getString("MainWindow.btnMprErstellen.text")); //$NON-NLS-1$
-		createMPRBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				createAndStoreMPR();
-			}
-		});
-		
 		m_negativeChkBx = new JCheckBox(Messages.getString("MainWindow.chckbxNegativ.text")); //$NON-NLS-1$
 		m_negativeChkBx.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -816,13 +756,24 @@ public class MainWindow {
 		gbc_negativChkBx.gridx = 7;
 		gbc_negativChkBx.gridy = 0;
 		picturePanel.add(m_negativeChkBx, gbc_negativChkBx);
-		GridBagConstraints gbc_createMPRBtn = new GridBagConstraints();
-		gbc_createMPRBtn.anchor = GridBagConstraints.WEST;
-		gbc_createMPRBtn.gridwidth = 4;
-		gbc_createMPRBtn.insets = new Insets(0, 0, 5, 5);
-		gbc_createMPRBtn.gridx = 12;
-		gbc_createMPRBtn.gridy = 0;
-		picturePanel.add(createMPRBtn, gbc_createMPRBtn);
+		
+		JButton applyChangesBtn = new JButton(Messages.getString("MainWindow.btnAnwenden.text")); //$NON-NLS-1$
+		GridBagConstraints gbc_applyChangesBtn = new GridBagConstraints();
+		gbc_applyChangesBtn.insets = new Insets(0, 0, 5, 5);
+		gbc_applyChangesBtn.gridx = 10;
+		gbc_applyChangesBtn.gridy = 0;
+		picturePanel.add(applyChangesBtn, gbc_applyChangesBtn);
+		applyChangesBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File file = new File(picPathTf.getText());
+				try {
+					applyImgSettings(file);
+				} catch (IOException e1) {
+					errorPopUp(Messages.getString("imgIOError"));
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -841,6 +792,46 @@ public class MainWindow {
 		 */
 		pictureHeightTf.setText(Integer.toString(m_imgPanel.getCurrHeight()));
 		pictureWidthTf.setText(Integer.toString(m_imgPanel.getCurrWidth()));
+		
+		JPanel mprPanel = new JPanel();
+		mprPanel.setBorder(new TitledBorder(null, "MPR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_mprPanel = new GridBagConstraints();
+		gbc_mprPanel.gridwidth = 3;
+		gbc_mprPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_mprPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_mprPanel.gridx = 0;
+		gbc_mprPanel.gridy = 4;
+		mainPanel.add(mprPanel, gbc_mprPanel);
+		mprPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel mprPathLbl = new JLabel(Messages.getString("MainWindow.lblVerzeichnis.text"));
+		mprPanel.add(mprPathLbl);
+		
+		mprPathTf = new JTextField();
+		mprPanel.add(mprPathTf);
+		mprPathTf.setText(Messages.getString("MainWindow.textField_13.text"));
+		mprPathTf.setColumns(10);
+		JButton mprPathBrowseBtn = new JButton(Messages.getString("MainWindow.btnNewButton.text_1")); //$NON-NLS-1$
+		mprPanel.add(mprPathBrowseBtn);
+		mprPathBrowseBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int returnVal = m_fcMprBrowse.showOpenDialog(frmPictomprconverter);
+				
+				if(returnVal == JFileChooser.APPROVE_OPTION){
+					File file = m_fcMprBrowse.getSelectedFile();
+					
+					mprPathTf.setText(file.getPath());
+				}
+			}
+		});
+		
+		JButton createMPRBtn = new JButton(Messages.getString("MainWindow.btnMprErstellen.text")); //$NON-NLS-1$
+		mprPanel.add(createMPRBtn);
+		createMPRBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createAndStoreMPR();
+			}
+		});
 	}
 	
 	/**

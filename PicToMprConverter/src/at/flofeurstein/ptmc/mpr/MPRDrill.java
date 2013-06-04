@@ -45,7 +45,7 @@ public class MPRDrill extends MPR{
 		DecimalFormat decFormat = (DecimalFormat)nf;
 		//decFormat.applyPattern("0.00");
 		decFormat.setMaximumFractionDigits(MAX_FRACT_DIGITS);
-		float wpToResFactor = workpieceLength/img.getWidth();//workpiece to resolution factor is needed if the workpiece is larger or smaller than the image resolution
+		float wpToResFactor = (float)workpieceLength/(float)img.getWidth();//workpiece to resolution factor is needed if the workpiece is larger or smaller than the image resolution
 		float mappedDrillDepth = 0;
 		Calendar nowCal = new GregorianCalendar();
 		nowCal.setTime(new Date());
@@ -117,8 +117,8 @@ public class MPRDrill extends MPR{
 					
 					if(mappedDrillDepth > ignoreMin && mappedDrillDepth < ignoreMax){
 						m_mprString.append("<102 \\BohrVert\\\n" +
-											"XA=\"faktorgr*" + wpToResFactor * (imgRaster.getWidth() - col) + "\"\n" +
-											"YA=\"faktorgr*" + wpToResFactor * (line + 1) + "\"\n" +
+											"XA=\"faktorgr*" + wpToResFactor * (float)(imgRaster.getWidth() - col) + "\"\n" +
+											"YA=\"faktorgr*" + wpToResFactor * (float)(line + 1) + "\"\n" +
 											"BM=\"" + drillMode + "\"\n" +
 											"TI=\"faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n" +
 											"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n\n"
@@ -156,8 +156,8 @@ public class MPRDrill extends MPR{
 					
 					if(mappedDrillDepth > ignoreMin && mappedDrillDepth < ignoreMax){
 						m_mprString.append("<102 \\BohrVert\\\n" +
-											"XA=\"faktorgr*" + wpToResFactor * (imgRaster.getWidth() - col) + "\"\n" +
-											"YA=\"faktorgr*" + wpToResFactor * (line + 1) + "\"\n" +
+											"XA=\"faktorgr*" + wpToResFactor * (float)(imgRaster.getWidth() - col) + "\"\n" +
+											"YA=\"faktorgr*" + wpToResFactor * (float)(line + 1) + "\"\n" +
 											"BM=\"" + drillMode + "\"\n" +
 											"TI=\"faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n" +
 											"DU=\"IF anzeige=0 THEN dm ELSE faktorti*" + decFormat.format(mappedDrillDepth) + "\"\n\n"
