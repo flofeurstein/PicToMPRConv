@@ -1,8 +1,26 @@
 /**
- * Author: Florian Feurstein
  * 
  * MainWindow.java
+ * 
+ * Copyright 2013 Florian Feurstein
+ * 
+ * This file is part of the PicToMprConverter.
+ *
+ * PicToMprConverter is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * PicToMprConverter is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with PicToMprConverter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
  */
+
 
 package at.flofeurstein.ptmc.gui;
 
@@ -48,6 +66,7 @@ import at.flofeurstein.ptmc.mpr.MPR;
 import at.flofeurstein.ptmc.mpr.MPRDrill;
 import at.flofeurstein.ptmc.mpr.MPRMill;
 import javax.swing.JCheckBox;
+import java.awt.Toolkit;
 
 public class MainWindow {
 
@@ -111,6 +130,7 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frmPictomprconverter = new JFrame();
+		frmPictomprconverter.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/at/flofeurstein/ptmc/gui/icon.jpg")));
 		frmPictomprconverter.setTitle(Messages.getString("MainWindow.frmPictomprconverter.title")); //$NON-NLS-1$
 		frmPictomprconverter.setBounds(100, 100, 843, 700);
 		frmPictomprconverter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,7 +1,24 @@
 /**
- * Author: Florian Feurstein
  * 
  * AboutDialog.java
+ * 
+ * Copyright 2013 Florian Feurstein
+ * 
+ * This file is part of the PicToMprConverter.
+ *
+ * PicToMprConverter is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * PicToMprConverter is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with PicToMprConverter.  If not, see <http://www.gnu.org/licenses/>.
+ * 
  */
 
 package at.flofeurstein.ptmc.gui;
@@ -13,7 +30,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -53,32 +73,41 @@ public class AboutDialog extends JDialog {
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblAutor = new JLabel(Messages.getString("AboutDialog.lblAutor.text")); //$NON-NLS-1$
-			GridBagConstraints gbc_lblAutor = new GridBagConstraints();
-			gbc_lblAutor.insets = new Insets(0, 0, 5, 5);
-			gbc_lblAutor.gridx = 1;
-			gbc_lblAutor.gridy = 2;
-			contentPanel.add(lblAutor, gbc_lblAutor);
+			JLabel lblCopyright = new JLabel(Messages.getString("AboutDialog.lblCopyright.text")); //$NON-NLS-1$
+			GridBagConstraints gbc_lblCopyright = new GridBagConstraints();
+			gbc_lblCopyright.gridheight = 3;
+			gbc_lblCopyright.gridwidth = 5;
+			gbc_lblCopyright.insets = new Insets(0, 0, 5, 0);
+			gbc_lblCopyright.gridx = 0;
+			gbc_lblCopyright.gridy = 0;
+			contentPanel.add(lblCopyright, gbc_lblCopyright);
 		}
+
 		{
-			JLabel lblFlorianFeurstein = new JLabel(Messages.getString("AboutDialog.lblFlorianFeurstein.text")); //$NON-NLS-1$
-			GridBagConstraints gbc_lblFlorianFeurstein = new GridBagConstraints();
-			gbc_lblFlorianFeurstein.insets = new Insets(0, 0, 5, 0);
-			gbc_lblFlorianFeurstein.gridx = 4;
-			gbc_lblFlorianFeurstein.gridy = 2;
-			contentPanel.add(lblFlorianFeurstein, gbc_lblFlorianFeurstein);
-		}
-		{
-			JLabel lblLizenz = new JLabel(Messages.getString("AboutDialog.lblLizenz.text")); //$NON-NLS-1$
-			GridBagConstraints gbc_lblLizenz = new GridBagConstraints();
-			gbc_lblLizenz.insets = new Insets(0, 0, 0, 5);
-			gbc_lblLizenz.gridx = 1;
-			gbc_lblLizenz.gridy = 4;
-			contentPanel.add(lblLizenz, gbc_lblLizenz);
+			ImagePane panelGPLv3 = new ImagePane();
+			GridBagConstraints gbc_panelGPLv3 = new GridBagConstraints();
+			gbc_panelGPLv3.gridx = 4;
+			gbc_panelGPLv3.gridy = 4;
+			try {
+				panelGPLv3.setImage(ImageIO.read(new File("../PicToMprConverter/src/at/flofeurstein/ptmc/gui/gplv3-127x51.png")));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			{
+				JLabel lblLizenz = new JLabel(Messages.getString("AboutDialog.lblLizenz.text")); //$NON-NLS-1$
+				GridBagConstraints gbc_lblLizenz = new GridBagConstraints();
+				gbc_lblLizenz.insets = new Insets(0, 0, 5, 0);
+				gbc_lblLizenz.gridwidth = 8;
+				gbc_lblLizenz.gridx = 0;
+				gbc_lblLizenz.gridy = 3;
+				contentPanel.add(lblLizenz, gbc_lblLizenz);
+			}
+			contentPanel.add(panelGPLv3, gbc_panelGPLv3);
 		}
 		{
 			JPanel buttonPane = new JPanel();
